@@ -1,9 +1,9 @@
 <div id="return-to-discover">
-  <%= button_to "Discover Page", "/users/#{@user.id}/discover", method: :get %>
+  <%= button_to "Discover Page", "/discover", method: :get %>
 </div>
 <br>
 <div id="create-vp">
-  <%= button_to "Create Viewing Party for #{@movie.title}", new_user_movie_party_path(@user.id, @movie.id), method: :get %>
+  <%= button_to "Create Viewing Party for #{@movie.title}", new_movie_user_party_path(@movie.id, current_user.id), method: :get %>
 </div>
 
 <div id="movie-info">

@@ -31,7 +31,7 @@ RSpec.describe "user dashboard page", type: :feature do
       end
 
       click_button("Discover Movies")
-      expect(current_path).to eq("/users/#{@user_1.id}/discover")
+      expect(current_path).to eq("/discover")
     end
 
     it "lists viewing parties that I am invited to with VP info", :vcr do
@@ -71,7 +71,7 @@ RSpec.describe "user dashboard page", type: :feature do
       click_on "Log In"
 
       click_link "Fight Club"
-      expect(current_path).to eq(user_movie_path(@user_3.id, 550))
+      expect(current_path).to eq(movie_path(550))
     end
   end
 end

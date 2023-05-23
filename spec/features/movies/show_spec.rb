@@ -8,29 +8,35 @@ RSpec.describe "Movie Detail page" do
   end
   describe "As a user, when I visit a movie's show page" do
     it "has a button to create a viewing party", :vcr do
-      visit user_movie_path(@user_1.id, @movie.id)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(@user_3)
+      visit movie_path(@movie.id)
 
       within("#create-vp") do
         expect(page).to have_button("Create Viewing Party for #{@movie.title}")
         click_button "Create Viewing Party for #{@movie.title}"
       end
 
-      expect(current_path).to eq(new_user_movie_party_path(@user_1.id, @movie.id))
+      expect(current_path).to eq(new_movie_user_party_path(@movie.id, @user_3.id))
     end
 
     it "has a button to return to the discover page", :vcr do
-      visit user_movie_path(@user_1.id, @movie.id)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(@user_3)
+      visit movie_path(@movie.id)
 
       within("#return-to-discover") do
         expect(page).to have_button("Discover Page")
         click_button "Discover Page"
       end
 
-      expect(current_path).to eq("/users/#{@user_1.id}/discover")
+      expect(current_path).to eq("/discover")
     end
 
     it "has the movie's information", :vcr do
-      visit user_movie_path(@user_1.id, @movie.id)
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(@user_3)
+      visit movie_path(@movie.id)
 
       within("#movie-info") do
         expect(page).to have_content(@movie.title)
@@ -44,8 +50,10 @@ RSpec.describe "Movie Detail page" do
     end
 
     it "lists the first 10 cast members", :vcr do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(@user_3)
       cast = MovieFacade.new.cast_members(@movie.id)
-      visit user_movie_path(@user_1.id, @movie.id)
+      visit movie_path(@movie.id)
 
       within("#cast-members") do
         cast.each do |member|
@@ -56,8 +64,10 @@ RSpec.describe "Movie Detail page" do
     end
 
     it "has a count of reviews and each review's author and info", :vcr do
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(@user_1)
       reviews = MovieFacade.new.all_reviews(@movie.id)
-      visit user_movie_path(@user_1.id, @movie.id)
+      visit movie_path(@movie.id)
 
       within("#reviews") do
         expect(page).to have_content("#{reviews.count} Reviews")

@@ -1,6 +1,6 @@
 # controller for data from movies API
 class MoviesController < ApplicationController
-  before_action :find_user, only: [:discover, :index, :show]
+  # before_action :find_user, only: [:discover, :index, :show]
 
   def discover; end
 

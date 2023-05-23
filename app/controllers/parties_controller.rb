@@ -16,7 +16,7 @@ class PartiesController < ApplicationController
                   movie: params[:movie_id],
                   party: party.id
     else
-      redirect_to new_user_movie_party_path(params[:user_id], params[:movie_id])
+      redirect_to new_movie_user_party_path(params[:movie_id], params[:user_id])
       flash[:alert] = "All fields must be filled out and party length must be greater than movie length"
     end
   end

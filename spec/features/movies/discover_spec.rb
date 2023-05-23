@@ -6,7 +6,9 @@ RSpec.describe "Movies Discover page" do
   end
   describe "As a user, when I visit the movies discover page" do
     it "has a button to discover top rated movies", :vcr do
-      visit "/users/#{@user_1.id}/discover"
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(@user_1)
+      visit "/discover"
 
       within("#top-movies") do
         expect(page).to have_button("Find Top Rated Movies")
@@ -17,7 +19,9 @@ RSpec.describe "Movies Discover page" do
     end
 
     it "can search by movie title", :vcr do
-      visit "/users/#{@user_1.id}/discover"
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(@user_1)
+      visit "/discover"
 
       within("#search-movies") do
         fill_in(:search, with: "Fight Club")

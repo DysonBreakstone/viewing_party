@@ -1,14 +1,14 @@
-<%= "#{@user.name}'s Dashboard" %>
-<%= button_to "Discover Movies", "/users/#{@user.id}/discover", method: :get %>
+<%= "#{current_user.name}'s Dashboard" %>
+<%= button_to "Discover Movies", "/users/#{current_user.id}/discover", method: :get %>
 <section id="parties">
-  <%= "This user has no parties yet" if @user.no_parties? %>
+  <%= "This user has no parties yet" if current_user.no_parties? %>
 </section>
 <br>
 <div id="hosted-vps">
-  <% @user.host_vps.each do |party| %>
+  <% current_user.host_vps.each do |party| %>
     <img src=<%= @facade.movie_poster(party.movie_id)%> alt="poster", width="100", height="auto">
     <br>
-    <%= link_to @facade.movie_title(party.movie_id).to_s, user_movie_path(@user.id, party.movie_id) %><br>
+    <%= link_to @facade.movie_title(party.movie_id).to_s, user_movie_path(current_user.id, party.movie_id) %><br>
     <%= party.format_date %><br>
     <%= party.format_time %><br>
     Hosting
@@ -23,10 +23,10 @@
 </div>
 
 <div id="guest-vps">
-  <% @user.guest_vps.each do |party| %>
+  <% current_user.guest_vps.each do |party| %>
     <img src=<%= @facade.movie_poster(party.movie_id)%> alt="poster", width="100", height="auto">
     <br>
-    <%= link_to @facade.movie_title(party.movie_id).to_s, user_movie_path(@user.id, party.movie_id) %><br>
+    <%= link_to @facade.movie_title(party.movie_id).to_s, user_movie_path(current_user.id, party.movie_id) %><br>
     <%= party.format_date %><br>
     <%= party.format_time %><br>
     Invited
@@ -36,7 +36,7 @@
     Guests:
     <ul>
       <% party.guests.each do |guest| %>
-        <% if guest == @user %>
+        <% if guest == current_user %>
           <li><b><%= guest.name %></b></li>
         <% else %>
           <li><%= guest.name %></li>

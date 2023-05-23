@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @user = User.new(user_data)
     if @user.save
       session[:user_id] = @user.id
-      redirect_to "/users/#{@user.id}"
+      redirect_to dashboard_path
     else
       redirect_to "/register"
       flash[:alert] = @user.errors.full_messages.to_sentence
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       if user.authenticate(params[:password])
         session[:user_id] = user.id
         flash[:success] = "Session Started"
-        redirect_to "/users/#{user.id}"
+        redirect_to dashboard_path
       else
         flash[:error] = "Incorrect Password."
         redirect_to login_path
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   # end
 
   def dashboard
-    @user = User.find(params[:user_id])
+    # @user = User.find(params[:user_id])
     @facade = MovieFacade.new
   end
 

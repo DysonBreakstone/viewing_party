@@ -9,7 +9,7 @@ RSpec.describe "log out" do
     fill_in :password, with: "#{user.password}"
     click_on "Log In"
 
-    expect(current_path).to eq("/users/#{user.id}")
+    expect(current_path).to eq(dashboard_path)
     expect(page).to have_content("Session Started")
     visit root_path
   end

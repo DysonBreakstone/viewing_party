@@ -43,7 +43,7 @@ RSpec.describe "Movies Results page" do
     it "has a button to return to the discover page", :vcr do
       allow_any_instance_of(ApplicationController)
         .to receive(:current_user).and_return(@user_1)
-      visit "/users/#{@user_1.id}/movies"
+      visit movies_path
 
       expect(page).to have_button("Discover Page")
       click_button "Discover Page"
@@ -69,7 +69,7 @@ RSpec.describe "Movies Results page" do
     it "displays a message if there are no movie search results" do
       allow_any_instance_of(ApplicationController)
         .to receive(:current_user).and_return(@user_1)
-      visit "/users/#{@user_1.id}/movies"
+      visit movies_path
 
       within("#results") do
         expect(page).to have_content("No results.")

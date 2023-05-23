@@ -9,8 +9,15 @@ RSpec.describe "New Viewing party page" do
     end
 
     it "has a form with all necessary fields", :vcr do
+      user = User.create!(name: "User", email: "email@email.com", password: "password123", password_confirmation: "password123")
+      visit login_path
+      
+      fill_in :email, with: "#{user.email}"
+      fill_in :password, with: "#{user.password}"
+      click_on "Log In"
       allow_any_instance_of(ApplicationController)
         .to receive(:current_user).and_return(@user_1)
+    
       visit new_movie_party_path(@movie_1.id)
 
       expect(page).to have_content("Viewing Party Details")
@@ -70,8 +77,11 @@ RSpec.describe "New Viewing party page" do
     end
 
     it "displays an error message if movie duration is longer than party duration", :vcr do
-      allow_any_instance_of(ApplicationController)
-        .to receive(:current_user).and_return(@user_1)
+      user = User.create!(name: "User", email: "email@email.com", password: "password123", password_confirmation: "password123")
+      visit login_path
+      fill_in :email, with: "#{user.email}"
+      fill_in :password, with: "#{user.password}"
+      click_on "Log In"
       visit new_movie_party_path(@movie_1.id)
 
       fill_in("duration", with: 30)
@@ -89,8 +99,11 @@ RSpec.describe "New Viewing party page" do
     end
 
     it "displays an error message if fields are blank", :vcr do
-      # allow_any_instance_of(ApplicationController)
-      #   .to receive(:current_user).and_return(@user_1)
+      user = User.create!(name: "User", email: "email@email.com", password: "password123", password_confirmation: "password123")
+      visit login_path
+      fill_in :email, with: "#{user.email}"
+      fill_in :password, with: "#{user.password}"
+      click_on "Log In"
       visit new_movie_party_path(@movie_1.id)
 
       fill_in("duration", with: 30)

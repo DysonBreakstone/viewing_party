@@ -15,7 +15,7 @@ RSpec.describe "Movies Discover page" do
         click_button "Find Top Rated Movies"
       end
 
-      expect(current_path).to eq("/users/#{@user_1.id}/movies")
+      expect(current_path).to eq(movies_path)
     end
 
     it "can search by movie title", :vcr do
@@ -28,7 +28,7 @@ RSpec.describe "Movies Discover page" do
         click_button "Find Movies"
       end
 
-      expect(current_path).to eq("/users/#{@user_1.id}/movies")
+      expect(current_path).to eq(movies_path)
       expect(page).to have_content("Fight Club")
     end
   end

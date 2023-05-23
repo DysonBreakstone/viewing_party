@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     user_data[:email] = user_data[:email].downcase
     @user = User.new(user_data)
     if @user.save
+      session[:user_id] = @user.id
       redirect_to "/users/#{@user.id}"
     else
       redirect_to "/register"

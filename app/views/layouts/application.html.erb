@@ -15,6 +15,11 @@
     <div id="home">
       <%= link_to "Home", root_path %>
     </div>
+    <% if session[:user_id] %>
+      <div id="dasboard_link" >
+        <%= link_to "Dashboard", "/users/#{session[:user_id]}" %>
+      </div>
+    <% end %>
     <div id="title">
       <h1>Viewing Party</h1>
     </div>

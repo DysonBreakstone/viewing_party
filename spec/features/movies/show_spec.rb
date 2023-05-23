@@ -75,4 +75,20 @@ RSpec.describe "Movie Detail page" do
       end
     end
   end
+
+  describe "new party rejects non-logged-in user" do
+    before do
+      test_data
+      test_movie_details
+      @movie = Movie.new(@data)
+    end
+
+    it "returns error message", :vcr do
+      visit movie_path(@movie.id)
+      click_on "Create Viewing Party for #{@movie.title}"
+
+      expect(current_path).to eq(movie_path(@movie.id))
+      expect(page).to have_content("Must be logged in to create a viewing party")
+    end
+  end
 end

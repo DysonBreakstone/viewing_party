@@ -8,8 +8,11 @@ RSpec.describe "Movie Detail page" do
   end
   describe "As a user, when I visit a movie's show page" do
     it "has a button to create a viewing party", :vcr do
-      allow_any_instance_of(ApplicationController)
-        .to receive(:current_user).and_return(@user_3)
+      user = User.create!(name: "User", email: "email@email.com", password: "password123", password_confirmation: "password123")
+      visit login_path
+      fill_in :email, with: "#{user.email}"
+      fill_in :password, with: "#{user.password}"
+      click_on "Log In"
       visit movie_path(@movie.id)
 
       within("#create-vp") do
@@ -34,8 +37,6 @@ RSpec.describe "Movie Detail page" do
     end
 
     it "has the movie's information", :vcr do
-      allow_any_instance_of(ApplicationController)
-        .to receive(:current_user).and_return(@user_3)
       visit movie_path(@movie.id)
 
       within("#movie-info") do
@@ -50,8 +51,6 @@ RSpec.describe "Movie Detail page" do
     end
 
     it "lists the first 10 cast members", :vcr do
-      # allow_any_instance_of(ApplicationController)
-      #   .to receive(:current_user).and_return(@user_3)
       cast = MovieFacade.new.cast_members(@movie.id)
       visit movie_path(@movie.id)
 
@@ -64,8 +63,6 @@ RSpec.describe "Movie Detail page" do
     end
 
     it "has a count of reviews and each review's author and info", :vcr do
-      allow_any_instance_of(ApplicationController)
-        .to receive(:current_user).and_return(@user_1)
       reviews = MovieFacade.new.all_reviews(@movie.id)
       visit movie_path(@movie.id)
 

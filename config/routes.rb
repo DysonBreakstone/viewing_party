@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get "/users/:user_id/movies", to: "movies#index"
   get "/user_parties/create", to: "user_parties#create"
   get "/login", to: "users#login_form"
+  delete "/logout", to: "sessions#destroy"
   post "/login", to: "users#login_user"
 
   resources :users, only: [:create]

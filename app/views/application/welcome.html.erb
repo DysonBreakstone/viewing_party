@@ -1,12 +1,16 @@
-<div id="new-user">
-  <%= button_to "Create New User", "/register", method: :get %>
-</div>
-<br>
+<% if session[:user_id] %>
+  <%= link_to "Log Out", logout_path, method: :delete %>
+<% else %>
+  <div id="new-user">
+    <%= button_to "Create New User", "/register", method: :get %>
+  </div>
+  <br>
+  <div id="login">
+    <%= link_to "Log In", login_path %>
+  </div>
+<% end %>
 <div id="users">
   <% @users.each do |user| %>
     <%= link_to "#{user.email}", "users/#{user.id}" %> <br>
   <% end %>
-</div>
-<div id="login">
-  <%= link_to "Log In", login_path %>
 </div>

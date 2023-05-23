@@ -37,6 +37,10 @@ class UsersController < ApplicationController
     end
   end
 
+  # def logout_user
+  #   session[:user]
+  # end
+
   def dashboard
     @user = User.find(params[:user_id])
     @facade = MovieFacade.new

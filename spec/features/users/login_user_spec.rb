@@ -54,6 +54,7 @@ RSpec.describe "login user" do
     click_button("Create User")
     visit root_path
     
+    click_link("Log Out")
     click_link("Log In")
 
     fill_in :email, with: "BaRBARasEmaIL@EmaIL.COM"

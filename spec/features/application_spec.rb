@@ -29,7 +29,9 @@ RSpec.describe "landing page" do
 
       expect(current_path).to eq("/register")
     end
-    it "has a list of existing users which links to the user dashboard" do
+    xit "has a list of existing users which links to the user dashboard" do
+## This test is no longer relevant since the feature it tests is not a part of
+## the most recent version of the app
       within("#users") do
         @users.each do |user|
           expect(page).to have_link(user.email.to_s)

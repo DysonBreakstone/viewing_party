@@ -17,11 +17,11 @@ RSpec.describe "log out" do
   it "login and create account clickables disappear and login button appears" do
     expect(page).to_not have_button("Create New User")
     expect(page).to_not have_link("Log In")
-    expect(page).to have_link("Log Out")
+    expect(page).to have_button("Log Out")
   end
 
   it "logs out user and returns to landing page" do
-    click_link("Log Out")
+    click_on("Log Out")
 
     expect(current_path).to eq(root_path)
     expect(page).to have_button("Create New User")

@@ -14,12 +14,10 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
   post "/login", to: "users#login_user"
 
-  resources :users, only: [:create]
+  resources :users, only: [:create, :show]
+  resources :users, only: [:show]
   resources :movies, only: [:show] do
-  
-  resources :users, only: [:show] do
-      resources :parties, only: [:new, :create]
-    end
+    resources :parties, only: [:new, :create]
   end
 
   if Rails.env.test?

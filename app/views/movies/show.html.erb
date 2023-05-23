@@ -3,7 +3,7 @@
 </div>
 <br>
 <div id="create-vp">
-  <%= button_to "Create Viewing Party for #{@movie.title}", new_movie_user_party_path(@movie.id, current_user.id), method: :get %>
+  <%= button_to "Create Viewing Party for #{@movie.title}", new_movie_party_path(@movie.id), method: :get %>
 </div>
 
 <div id="movie-info">

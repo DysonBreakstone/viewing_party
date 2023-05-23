@@ -17,7 +17,7 @@ RSpec.describe "Movie Detail page" do
         click_button "Create Viewing Party for #{@movie.title}"
       end
 
-      expect(current_path).to eq(new_movie_user_party_path(@movie.id, @user_3.id))
+      expect(current_path).to eq(new_movie_party_path(@movie.id))
     end
 
     it "has a button to return to the discover page", :vcr do
@@ -50,8 +50,8 @@ RSpec.describe "Movie Detail page" do
     end
 
     it "lists the first 10 cast members", :vcr do
-      allow_any_instance_of(ApplicationController)
-        .to receive(:current_user).and_return(@user_3)
+      # allow_any_instance_of(ApplicationController)
+      #   .to receive(:current_user).and_return(@user_3)
       cast = MovieFacade.new.cast_members(@movie.id)
       visit movie_path(@movie.id)
 

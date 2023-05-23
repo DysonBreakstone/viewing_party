@@ -11,7 +11,7 @@ RSpec.describe "New Viewing party page" do
     it "has a form with all necessary fields", :vcr do
       allow_any_instance_of(ApplicationController)
         .to receive(:current_user).and_return(@user_1)
-      visit new_movie_user_party_path(@movie_1.id, @user_1)
+      visit new_movie_party_path(@movie_1.id)
 
       expect(page).to have_content("Viewing Party Details")
       expect(page).to have_content(@movie_1.title)
@@ -45,7 +45,7 @@ RSpec.describe "New Viewing party page" do
       fill_in :email, with: "#{@user_1.email}"
       fill_in :password, with: "#{@user_1.password}"
       click_on "Log In"
-      visit new_movie_user_party_path(@movie_1.id, @user_1)
+      visit new_movie_party_path(@movie_1.id)
       allow_any_instance_of(ApplicationController)
         .to receive(:current_user).and_return(@user_1)
 
@@ -72,7 +72,7 @@ RSpec.describe "New Viewing party page" do
     it "displays an error message if movie duration is longer than party duration", :vcr do
       allow_any_instance_of(ApplicationController)
         .to receive(:current_user).and_return(@user_1)
-      visit new_movie_user_party_path(@movie_1.id, @user_1)
+      visit new_movie_party_path(@movie_1.id)
 
       fill_in("duration", with: 30)
       select "2023", from: "[day(1i)]"
@@ -84,14 +84,14 @@ RSpec.describe "New Viewing party page" do
       check(@user_4.id)
       click_button("Create Party")
 
-      expect(current_path).to eq(new_movie_user_party_path(@movie_1.id, @user_1))
+      expect(current_path).to eq(new_movie_party_path(@movie_1.id))
       expect(page).to have_content("All fields must be filled out and party length must be greater than movie length")
     end
 
     it "displays an error message if fields are blank", :vcr do
-      allow_any_instance_of(ApplicationController)
-        .to receive(:current_user).and_return(@user_1)
-      visit new_movie_user_party_path(@movie_1.id, @user_1)
+      # allow_any_instance_of(ApplicationController)
+      #   .to receive(:current_user).and_return(@user_1)
+      visit new_movie_party_path(@movie_1.id)
 
       fill_in("duration", with: 30)
       select "2023", from: "[day(1i)]"
@@ -103,7 +103,7 @@ RSpec.describe "New Viewing party page" do
       check(@user_4.id)
       click_button("Create Party")
 
-      expect(current_path).to eq(new_movie_user_party_path(@movie_1.id, @user_1))
+      expect(current_path).to eq(new_movie_party_path(@movie_1.id))
       expect(page).to have_content("All fields must be filled out and party length must be greater than movie length")
     end
   end

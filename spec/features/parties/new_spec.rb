@@ -38,6 +38,11 @@ RSpec.describe "New Viewing party page" do
     it "creates viewing party", :vcr do
       @party_1 = Party.create!(duration: 200, date: "05/09/2023", time: "12:00", movie_id: 550)
       @party_1.user_parties.create!(user_id: @user_2.id)
+      visit login_path
+      
+      fill_in :email, with: "#{@user_1.email}"
+      fill_in :password, with: "#{@user_1.password}"
+      click_on "Log In"
       visit new_user_movie_party_path(@user_1, @movie_1.id)
       allow_any_instance_of(ApplicationController)
         .to receive(:current_user).and_return(@user_1)

@@ -21,4 +21,10 @@ Rails.application.routes.draw do
       resources :parties, only: [:new, :create]
     end
   end
+
+  if Rails.env.test?
+    namespace :test do
+      resource :session, only: %i[create]
+    end
+  end
 end

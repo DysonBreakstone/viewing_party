@@ -37,12 +37,12 @@ class UsersController < ApplicationController
     end
   end
 
-  # def logout_user
-  #   session[:user]
-  # end
-
   def dashboard
-    # @user = User.find(params[:user_id])
+    # require 'pry'; binding.pry
+    if !session[:user_id]
+      redirect_to root_path
+      flash[:alert] = "Must be logged in to view dashboard"
+    end
     @facade = MovieFacade.new
   end
 

@@ -26,8 +26,8 @@ RSpec.describe Party do
     end
     describe "guests" do
       it "returns list of users who are not hosting party", :vcr do
-        expect(@party_1.guests).to eq([@user_2, @user_3])
-        expect(@party_2.guests).to eq([@user_4, @user_5])
+        expect(@party_1.guests.sort).to eq([@user_2, @user_3].sort)
+        expect(@party_2.guests.sort).to eq([@user_4, @user_5].sort)
       end
     end
     describe "format_date" do

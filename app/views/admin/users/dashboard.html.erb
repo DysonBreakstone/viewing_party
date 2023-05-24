@@ -2,7 +2,7 @@
   <%= "#{current_user.name}'s Admin Dashboard" %>
   <h2>Existing Users</h2>
   <% @users.each do |user| %>
-    <%= link_to user.email, admin_user_path(user.id) %>
+    <%= link_to user.email, admin_user_path(user.id) %><br/>
   <% end %>
 <% else %>
   <h2> "You are not authorized to view this page." </h2>

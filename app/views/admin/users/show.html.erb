@@ -1,0 +1,51 @@
+<% if current_user.admin? %>
+  <%= "#{@user.name}'s Dashboard" %>
+  <%= button_to "Discover Movies", "/discover", method: :get %>
+  <section id="parties">
+    <%= "This user has no parties yet" if @user.no_parties? %>
+  </section>
+  <br>
+  <div id="hosted-vps">
+    <% @user.host_vps.each do |party| %>
+      <img src=<%= @facade.movie_poster(party.movie_id)%> alt="poster", width="100", height="auto">
+      <br>
+      <%= link_to @facade.movie_title(party.movie_id).to_s, movie_path(party.movie_id) %><br>
+      <%= party.format_date %><br>
+      <%= party.format_time %><br>
+      Hosting
+      <br>
+      Guests:
+      <ul>
+        <% party.guests.each do |guest| %>
+          <li><%= guest.name %></li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+
+  <div id="guest-vps">
+    <% @user.guest_vps.each do |party| %>
+      <img src=<%= @facade.movie_poster(party.movie_id)%> alt="poster", width="100", height="auto">
+      <br>
+      <%= link_to @facade.movie_title(party.movie_id).to_s, movie_path(party.movie_id) %><br>
+      <%= party.format_date %><br>
+      <%= party.format_time %><br>
+      Invited
+      <br>
+      Hosted by: <%= party.host %>
+      <br>
+      Guests:
+      <ul>
+        <% party.guests.each do |guest| %>
+          <% if guest == @user %>
+            <li><b><%= guest.name %></b></li>
+          <% else %>
+            <li><%= guest.name %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+<% else %>
+  <h2> You are not authorized to view this page. </h2>
+<% end %>

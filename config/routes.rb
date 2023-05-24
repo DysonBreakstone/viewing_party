@@ -18,9 +18,8 @@ Rails.application.routes.draw do
     resources :parties, only: [:new, :create]
   end
 
-  if Rails.env.test?
-    namespace :test do
-      resource :session, only: %i[create]
-    end
+  namespace :admin do
+    get "/dashboard", to: "users#dashboard"
+    resources :users, only: [:show]
   end
 end

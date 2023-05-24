@@ -23,6 +23,15 @@ RSpec.describe User do
       user = User.create(name: 'Meg', email: 'meg@test.com', password: 'password123', password_confirmation: 'passwordwerwer123')
       expect(user.save).to eq(false)
     end
+
+    it "role enum" do
+      user = User.create(name: 'Meg', email: 'meg@test.com', password: 'password123', password_confirmation: 'password123')
+      admin_user = User.create(name: 'AdminMeg', email: 'AdminMeg@test.com', password: 'password123', password_confirmation: 'password123', role: 1)
+      expect(user.user?).to eq(true)
+      expect(admin_user.admin?).to eq(true)
+      expect(admin_user.user?).to eq(false)
+      expect(user.admin?).to eq(false)
+    end
   end
 
   describe "instance methods" do

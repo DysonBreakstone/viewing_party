@@ -38,8 +38,7 @@ class UsersController < ApplicationController
   end
 
   def dashboard
-    # require 'pry'; binding.pry
-    if !session[:user_id]
+    if !current_user
       redirect_to root_path
       flash[:alert] = "Must be logged in to view dashboard"
     end

@@ -11,6 +11,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  enum role: [:user, :admin]
+
   def no_parties?
     parties.empty?
   end

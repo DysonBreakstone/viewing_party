@@ -17,11 +17,6 @@ RSpec.describe "user dashboard page", type: :feature do
 
     it "has user's name, a discover button, and a party viewing section", :vcr do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user_1)
-      visit login_path
-      
-      fill_in :email, with: "#{@user_1.email}"
-      fill_in :password, with: "#{@user_1.password}"
-      click_on "Log In"
       visit dashboard_path
 
       expect(page).to have_content("User 1's Dashboard")
@@ -38,10 +33,6 @@ RSpec.describe "user dashboard page", type: :feature do
       allow_any_instance_of(ApplicationController)
         .to receive(:current_user).and_return(@user_3)
 
-      visit login_path
-      fill_in :email, with: "#{@user_3.email}"
-      fill_in :password, with: "#{@user_3.password}"
-      click_on "Log In"
       visit dashboard_path
 
       within("#hosted-vps") do
@@ -64,11 +55,9 @@ RSpec.describe "user dashboard page", type: :feature do
     end
 
     it "has movie titles linked to their show page", :vcr do
-      visit login_path
-      
-      fill_in :email, with: "#{@user_3.email}"
-      fill_in :password, with: "#{@user_3.password}"
-      click_on "Log In"
+      allow_any_instance_of(ApplicationController)
+        .to receive(:current_user).and_return(@user_3)
+      visit dashboard_path
 
       click_link "Fight Club"
       expect(current_path).to eq(movie_path(550))

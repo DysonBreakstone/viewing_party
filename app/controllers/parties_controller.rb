@@ -1,7 +1,7 @@
 # Controller for parties
 class PartiesController < ApplicationController
   def new
-    if session[:user_id]
+    if current_user
       @movie = MovieFacade.new.find_movie(params[:movie_id])
       @users = User.all
     else
@@ -16,7 +16,7 @@ class PartiesController < ApplicationController
       redirect_to controller: 'user_parties',
                   action: 'create',
                   participants: params[:participants],
-                  party_host: session[:user_id],
+                  party_host: current_user,
                   movie: params[:movie_id],
                   party: party.id
     else

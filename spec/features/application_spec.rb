@@ -29,6 +29,7 @@ RSpec.describe "landing page" do
 
       expect(current_path).to eq("/register")
     end
+
     xit "has a list of existing users which links to the user dashboard" do
 ## This test is no longer relevant since the feature it tests is not a part of
 ## the most recent version of the app
@@ -41,6 +42,7 @@ RSpec.describe "landing page" do
         end
       end
     end
+    
     it "has a link to go back to the landing page" do
       within("#home") do
         expect(page).to have_link("Home")

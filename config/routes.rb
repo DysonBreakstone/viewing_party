@@ -8,14 +8,12 @@ Rails.application.routes.draw do
   get "/register", to: "users#new"
   get "/dashboard", to: "users#dashboard"
   get "/discover", to: "movies#discover"
-  # get "/users/:user_id/movies", to: "movies#index"
   get "/user_parties/create", to: "user_parties#create"
   get "/login", to: "users#login_form"
   delete "/logout", to: "sessions#destroy"
   post "/login", to: "users#login_user"
 
   resources :users, only: [:create, :show]
-  resources :users, only: [:show]
   resources :movies, only: [:index, :show] do
     resources :parties, only: [:new, :create]
   end
